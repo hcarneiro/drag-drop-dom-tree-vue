@@ -2,14 +2,13 @@
   <div class="device-container">
     <div class="device mobile ios">
       <div class="frame">
-        <iframe id="clientframe" src="/frame.html" frameborder="0" ref="iframe"></iframe>
+        <iframe id="clientframe" src="./frame.html" frameborder="0" ref="iframe"></iframe>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import $ from 'jquery'
 import { state, setDomTree, setIframe, setIframeContentWindow } from '../store'
 import DragDropFunctions from '../libs/drag-drop'
 import { getInsertionCSS } from '../libs/insert-styles'
@@ -96,7 +95,7 @@ export default {
           console.log('Drop event')
           let e
           if (event.isTrigger)
-            e = triggerEvent.originalEvent // eslint-disable-line
+            e = triggerEvent.originalEvent
           else
             e = event.originalEvent
           try {

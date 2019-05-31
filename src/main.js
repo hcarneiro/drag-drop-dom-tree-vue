@@ -1,9 +1,8 @@
 import Vue from 'vue'
-import Main from './Main.vue'
+import App from './App.vue'
 
-const mainApp = new Vue({
-  el: '#app',
-  render: (createElement) => {
-    return createElement(Main)
-  }
-})
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+}).$mount('#app')

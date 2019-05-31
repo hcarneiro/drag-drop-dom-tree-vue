@@ -1,0 +1,131 @@
+.dom-tree {
+  .dragArea {
+    list-style: none;
+    min-height: 10px;
+    padding: 0;
+
+    li {
+      .draggable-title {
+        position: relative;
+        margin: 0;
+        padding: 10px 30px 10px 20px;
+        font-size: 0.8em;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background-color: #f8f6f7;
+
+        &:hover {
+          background-color: darken(#f8f6f7, 5%);
+
+          .fa {
+            &.fa-trash-o {
+              opacity: 0.6;
+              visibility: visible;
+            }
+          }
+        }
+
+        .fa {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.6em;
+          cursor: pointer;
+
+          &.fa-trash-o {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: auto;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1em;
+            opacity: 0;
+            visibility: hidden;
+
+            &:hover {
+              opacity: 1;
+              color: red;
+            }
+          }
+        }
+
+        + .dragArea {
+          padding-top: 10px;
+          padding-left: 20px;
+
+          &:empty {
+            margin-top: 0px;
+          }
+        }
+      }
+
+      &.no-children {
+        .draggable-title {
+          padding-left: 10px;
+        }
+
+        + li {
+          padding-top: 10px;
+        }
+
+        &.open {
+          + li {
+            padding-top: 0;
+          }
+        }
+      }
+
+      &.closed {
+        .draggable-title {
+          margin-bottom: 10px;
+        }
+      }
+
+      &.active {
+        > .draggable-title {
+          background-color: darken(#f8f6f7, 5%);
+          outline: #19cd9d solid 2px;
+          outline-offset: -1px;
+        }
+      }
+    }
+
+    .ghost {
+      border: 1px dashed #0088F8;
+      background: rgba(0, 136, 249, 0.09);
+      color: #0088f9;
+      margin-bottom: 10px;
+
+      .draggable-title {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border: none;
+        cursor: default;
+        background-color: transparent;
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        .fa {
+          display: none;
+        }
+      }
+
+      .dragArea {
+        min-height: 0;
+        padding-top: 0;
+      }
+    }
+  }
+}

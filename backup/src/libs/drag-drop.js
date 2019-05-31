@@ -1,6 +1,4 @@
-/* eslint-disable */
 import bus from './bus'
-import $ from 'jquery'
 
 const DragDropFunctions = {
   dragoverqueue: [],

@@ -8,45 +8,43 @@
     @end="onEnd"
     :move="onMove"
   >
-    <template v-for="(el, index) in nodes">
-      <li
-        v-if="el.nodeName && el.nodeName !== '#text' && el.nodeName !== '#comment'"
-        :key="index"
-        :class="{ 'no-children': !el.hasChildren(el), 'closed': !el.open, 'open': el.open }"
-        :data-el-id="el.elementId"
-        class="draggable-item"
+    <li
+      v-for="(el, index) in nodes"
+      v-if="el.nodeName && el.nodeName !== '#text' && el.nodeName !== '#comment'"
+      :key="index"
+      :class="{ 'no-children': !el.hasChildren(el), 'closed': !el.open, 'open': el.open }"
+      :data-el-id="el.elementId"
+      class="draggable-item"
+    >
+      <p
+        class="draggable-title"
+        @mousedown="scrollToEl(el)"
+        @mouseover="mouseOver($event, el)"
+        @mouseleave="mouseLeave($event, el)"
       >
-        <p
-          class="draggable-title"
-          @mousedown="scrollToEl(el)"
-          @mouseover="mouseOver($event, el)"
-          @mouseleave="mouseLeave($event, el)"
-        >
-          <i 
-            v-if="el.hasChildren(el)"
-            @click="toggleOpen(el)"
-            class="fa" :class="{
-              'fa-minus': el.open,
-              'fa-plus': !el.open
-            }"
-          ></i>
-          {{ el.nodeName }}
-          <i
-            class="fa fa-trash-o"
-            @click="removeAt(el)"
-          ></i>
-        </p>
-        <nested-draggable
-          v-if="childrenVisible(el)"
-          :nodes="el.children"
-        />
-      </li>
-    </template>
+        <i 
+          v-if="el.hasChildren(el)"
+          @click="toggleOpen(el)"
+          class="fa" :class="{
+            'fa-minus': el.open,
+            'fa-plus': !el.open
+          }"
+        ></i>
+        {{ el.nodeName }}
+        <i
+          class="fa fa-trash-o"
+          @click="removeAt(el)"
+        ></i>
+      </p>
+      <nested-draggable
+        v-if="childrenVisible(el)"
+        :nodes="el.children"
+      />
+    </li>
   </draggable>
 </template>
 
 <script>
-import $ from 'jquery'
 import { state } from '../store'
 import draggable from 'vuedraggable'
 import DragDropFunctions from '../libs/drag-drop'
@@ -157,9 +155,9 @@ export default {
 
       // Check if element has children
       if (element.children && element.children.length) {
-        for (var k = 0; k < element.children.length; k++) {
+        for (var j = 0; j < element.children.length; j++) {
           // If it has run the function again with the child element
-          newElement.appendChild(this.recursiveReconstruction(element.children[k]))
+          newElement.appendChild(this.recursiveReconstruction(element.children[j]))
         }
       } else if (element.nodeName !== '#text' && element.nodeName !== '#comment') {
         // If it doesn't have children and it's not one of these 2 node types
@@ -224,7 +222,7 @@ export default {
       this.drag = true
       this.renderHighlight(this.overElement, false, true)
     },
-    onEnd() {
+    onEnd(event) {
       this.drag = false
       this.renderPreview()
       this.overElement = undefined
