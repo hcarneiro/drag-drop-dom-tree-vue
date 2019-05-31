@@ -28,7 +28,8 @@
   },
   "scripts": {
     "watch": "gulp build && gulp watch",
-    "build": "gulp build"
+    "build": "gulp build",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "vuedraggable": "^2.21.0"
