@@ -32,17 +32,14 @@ const DragDropFunctions = {
           return this.placeInside($element, toHighlight, hideLine);
       } else if ($tempelement.children().length == 0) {
         //text element detected
-        //console.log('Text Element');
         this.decideBeforeAfter($element, mousePercents, undefined, toHighlight, hideLine);
       } else if ($tempelement.children().length == 1) {
         //only 1 child element detected
-        //console.log('1 Child Element');
         this.decideBeforeAfter($element.children(':not(.drop-marker,[data-dragcontext-marker])').first(), mousePercents, undefined, toHighlight, hideLine);
       } else {
         var positionAndElement = this.findNearestElement($element, mousePos.x, mousePos.y);
         this.decideBeforeAfter(positionAndElement.el, mousePercents, mousePos, toHighlight, hideLine);
         //more than 1 child element present
-        //console.log('More than 1 child detected');
       }
     } else if ((mousePercents.x <= breakPointNumber.x) || (mousePercents.y <= breakPointNumber.y)) {
       var validElement = null
@@ -180,8 +177,6 @@ const DragDropFunctions = {
         if (!toHighlight && !hideLine) {
           $element.before(placeholder);
         }
-        // console.log($element);
-        // console.log('BEFORE');
         this.addContainerContext($element, 'sibling', toHighlight);
         break;
       case 'after':
@@ -189,9 +184,6 @@ const DragDropFunctions = {
         if (!toHighlight && !hideLine) {
           $element.after(placeholder);
         }
-
-        // console.log($element);
-        // console.log('AFTER');
         this.addContainerContext($element, 'sibling', toHighlight);
         break
       case 'inside-prepend':
@@ -201,8 +193,6 @@ const DragDropFunctions = {
         }
 
         this.addContainerContext($element, 'inside', toHighlight);
-        // console.log($element);
-        // console.log('PREPEND');
         break;
       case 'inside-append':
         placeholder.find('.message').html($element.data('sh-dnd-error'));
@@ -211,8 +201,6 @@ const DragDropFunctions = {
         }
 
         this.addContainerContext($element, 'inside', toHighlight);
-        // console.log($element);
-        // console.log('APPEND');
         break;
     }
   },
@@ -301,15 +289,12 @@ const DragDropFunctions = {
             corner1 = { x: xPosition1, y: yPosition1, 'position': 'before' }; //left top
             corner2 = { x: xPosition1, y: yPosition2, 'position': 'after' }; //left bottom
           } else if (clientX > xPosition1 && clientX > xPosition2) {
-            //console.log('I m on the right of the element');
             corner1 = { x: xPosition2, y: yPosition1, 'position': 'before' }; //Right top
             corner2 = { x: xPosition2, y: yPosition2, 'position': 'after' }; //Right Bottom
           } else if (clientY < yPosition1 && clientY < yPosition2) {
-            // console.log('I m on the top of the element');
             corner1 = { x: xPosition1, y: yPosition1, 'position': 'before' }; //Top Left
             corner2 = { x: xPosition2, y: yPosition1, 'position': 'after' }; //Top Right
           } else if (clientY > yPosition1 && clientY > yPosition2) {
-            // console.log('I m on the bottom of the element');
             corner1 = { x: xPosition1, y: yPosition2, 'position': 'before' }; //Left bottom
             corner2 = { x: xPosition2, y: yPosition2, 'position': 'after' } //Right Bottom
           }

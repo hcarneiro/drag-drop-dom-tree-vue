@@ -72,6 +72,40 @@ export default {
           this.currentElementChangeFlag = false
           const mousePosition = { x: x, y: y }
           DragDropFunctions.addEntryToDragOverQueue(this.currentElement, this.elementRectangle, mousePosition)
+        }).on('dragstart', (event) => {
+          this.dragoverqueue_processtimer = setInterval(() => {
+            DragDropFunctions.processDragOverQueue()
+          }, 100)
+
+          let insertingHTML = $(event.target).attr('data-insert-html')
+          if (!insertingHTML) {
+            insertingHTML = $(event.target).prop('outerHTML')
+          }
+
+          event.originalEvent.dataTransfer.setData('Text', insertingHTML)
+
+          bus.$emit('dragging-component', true)
+        }).on('dragend', () => {
+          clearInterval(this.dragoverqueue_processtimer)
+          DragDropFunctions.removePlaceholder()
+          DragDropFunctions.clearContainerContext()
+
+          // Get iframe Node tree and process it
+          if (state.iframeContentWindow) {
+            DragDropFunctions.processNodeTree(state.iframeContentWindow.document.body)
+              .then((dom) => {
+                return DragDropFunctions.getBodyChildrenOnly(dom)
+              })
+              .then((results) => {
+                setDomTree(results)
+              })
+              .catch((error) => {
+                console.warn(error)
+              })
+          }
+
+          bus.$emit('dragging-component', false)
+          bus.$emit('stopped-hovering-element')
         }).on('mouseover', (event) => {
           event.stopPropagation()
           const currentElement = $(event.target)
@@ -93,7 +127,7 @@ export default {
         $(this.clientFrameWindow.document).find('body,html').on('drop', (event) => {
           event.preventDefault()
           event.stopPropagation()
-          console.log('Drop event')
+
           let e
           if (event.isTrigger)
             e = triggerEvent.originalEvent // eslint-disable-line

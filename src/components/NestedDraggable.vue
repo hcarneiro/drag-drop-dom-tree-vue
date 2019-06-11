@@ -279,6 +279,10 @@ export default {
         scrollableArea = $('.side-view .dom-tree')
       }
 
+      if (!element) {
+        return
+      }
+
       const rect = element.getBoundingClientRect()
       const windowHeight = scrollableArea.outerHeight()
       const elHeight = rect.height
