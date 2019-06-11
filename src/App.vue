@@ -10,7 +10,7 @@
 
       <div class="app-side-view">
         <div class="side-content">
-          <div class="dom-tree-wrapper" :class="{ active: isDragging }">
+          <div class="dom-tree-wrapper" :class="{ active: isDragging && mode !== 'dom' }">
             <div class="header">
               <p>DOM tree</p>
             </div>
