@@ -81,11 +81,12 @@ export default {
           if (!insertingHTML) {
             insertingHTML = $(event.target).prop('outerHTML')
           }
-
           event.originalEvent.dataTransfer.setData('Text', insertingHTML)
 
           bus.$emit('dragging-component', true)
-        }).on('dragend', () => {
+        }).on('dragend', (event) => {
+          $(event.target).remove()
+
           clearInterval(this.dragoverqueue_processtimer)
           DragDropFunctions.removePlaceholder()
           DragDropFunctions.clearContainerContext()

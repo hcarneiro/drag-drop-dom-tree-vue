@@ -30,7 +30,7 @@
               'fa-plus': !el.open
             }"
           ></i>
-          {{ el.nodeName }}
+          {{ el.elementName || el.nodeName }}
           <i
             class="fa fa-trash-o"
             @click="removeAt(el)"

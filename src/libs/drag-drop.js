@@ -452,7 +452,8 @@ const DragDropFunctions = {
 
       return {
         elementId: this.makeid(),
-        nodeName: newNodeName || node.nodeName,
+        elementName: newNodeName,
+        nodeName: node.nodeName,
         parentName: node.parentNode.nodeName,
         hasChildren: this.hasChildren,
         children: children,
@@ -469,7 +470,8 @@ const DragDropFunctions = {
 
     return {
       elementId: this.makeid(),
-      nodeName: newNodeName || node.nodeName,
+      elementName: newNodeName,
+      nodeName: node.nodeName,
       parentName: node.parentNode.nodeName,
       hasChildren: this.hasChildren,
       children: children,
