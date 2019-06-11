@@ -27,7 +27,7 @@ const DragDropFunctions = {
       //Case 1 -
       var $tempelement = $element.clone();
       $tempelement.find('.drop-marker').remove();
-      if ($tempelement.html() == '' && !this.checkVoidElement($tempelement)) {
+      if ($tempelement.html().trim() == '' && !this.checkVoidElement($tempelement)) {
         if (mousePercents.y < 90)
           return this.placeInside($element, toHighlight, hideLine);
       } else if ($tempelement.children().length == 0) {
